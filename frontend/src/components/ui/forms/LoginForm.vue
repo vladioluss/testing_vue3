@@ -59,7 +59,7 @@ async function loginTo() {
         <BaseButton
             :disabled="!isValid"
             :type="'button'"
-            @click="loginTo"
+            @click.prevent="loginTo"
         >
           <template #text>Войти</template>
         </BaseButton>

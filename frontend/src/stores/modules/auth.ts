@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 import type {User} from "@/types/user";
 import {ref} from "vue";
 import {getItems} from "@/app/api";
+import router from "@/router";
 
 
 // Главный роут
@@ -44,10 +45,10 @@ export const useAuthStore = defineStore('auth', () => {
   }*/
 
   // Выходим из аккаута и чистим localStorage
-  function logout(): boolean {
+  function logout(): void {
     user.value = {}
     localStorage.removeItem('user')
-    return true
+    router.push({ name: 'login'})
   }
 
   return {

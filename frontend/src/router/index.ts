@@ -14,7 +14,7 @@ const router = createRouter({
       meta: {
         layout: 'Empty',
       },
-      beforeEnter: () => {
+      beforeEnter: (to, from, next) => {
         router.push({name: 'orders'})
       }
     },
@@ -25,11 +25,6 @@ const router = createRouter({
       meta: {
         layout: 'Empty',
       },
-      beforeEnter: (to, from) => {
-        if (useAuthStore().user) {
-          router.push(from)
-        }
-      }
     },
 
     // Orders
