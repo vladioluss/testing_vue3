@@ -1,8 +1,7 @@
 import {defineStore} from "pinia";
 import type {User} from "@/types/user";
-import {computed, ref} from "vue";
-import {apiInstance, getItems, postItem} from "@/app/api";
-import {useErrorsStore} from "@/stores/modules/errors";
+import {ref} from "vue";
+import {getItems} from "@/app/api";
 
 
 // Главный роут
