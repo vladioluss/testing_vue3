@@ -29,7 +29,7 @@ date = date.replace(' г.', '')
 const preloader = usePreloaderStore()
 
 const errors = ref<string | null>(null)
-const valid = computed(() => name.value !== '' && address.value !== '')
+const valid = computed<boolean>(() => name.value !== '' && address.value !== '')
 
 function createEvent(): void {
   if (valid.value) {
