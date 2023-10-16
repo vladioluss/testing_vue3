@@ -28,6 +28,7 @@ date = date.replace(' г.', '')
 // const eventsStore = useEventsStore()
 const preloader = usePreloaderStore()
 
+const errors = ref<string | null>(null)
 const valid = computed(() => name.value !== '' && address.value !== '')
 
 function createEvent(): void {
@@ -47,6 +48,8 @@ function createEvent(): void {
     postItem(URL, params)
         .then(() => router.push({name: 'orders'}))
         .finally(() => preloader.setActivePreloader(false))
+  } else {
+    errors.value = 'Заполните обязательные поля'
   }
 }
 </script>
@@ -83,7 +86,7 @@ function createEvent(): void {
         </BaseButton>
       </template>
     </BaseForm>
-    <div v-if="!valid">Заполните обязательные поля</div>
+    <div v-if="errors">{{ errors }}</div>
   </div>
 </template>
 
