@@ -44,7 +44,7 @@
 
 
 # Запуск Backend (mock-server)
-1. Перейти в папку frontend командой ```cd backend```
+1. Перейти в папку backend командой ```cd backend```
 2. Запустить проект
 	```sh
 	json-server --watch db.json
