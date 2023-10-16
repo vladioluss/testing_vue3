@@ -59,4 +59,7 @@
 
 ```npm install -g json-server```
 
-```npm install -g create-vite```
+```npm install -g create-vite``` или ```yarn global add create-vite```
+
+- Локальная установка Vite:
+Если у вас проблемы с глобальной установкой, попробуйте установить Vite локально в вашем проекте: ```yarn add -D vite```
