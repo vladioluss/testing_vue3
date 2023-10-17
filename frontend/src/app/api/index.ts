@@ -3,7 +3,7 @@ import {useErrorsStore} from "@/stores/modules/errors";
 
 
 export const apiInstance = axios.create({
-  baseURL: 'http://127.0.0.1:3000/',
+  baseURL: 'https://backendvue3.netlify.com/',
   headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
