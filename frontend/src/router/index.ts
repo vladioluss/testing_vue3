@@ -14,7 +14,7 @@ const router = createRouter({
       meta: {
         layout: 'Empty',
       },
-      beforeEnter: (to, from, next) => {
+      beforeEnter: () => {
         router.push({name: 'orders'})
       }
     },

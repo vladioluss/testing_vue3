@@ -1,19 +1,18 @@
 <script setup lang="ts">
-defineProps({
-  id: {
-    type: String,
-    default: ''
-  },
-  label: {
-    type: String,
-    default: ''
-  },
-  type: {
-    type: String,
-    default: 'text'
-  },
-  modelValue: String||Number,
-  placeholder: String,
+interface Props {
+  id?: string
+  label?: string
+  type?: string
+  modelValue?: string
+  placeholder?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  id: '',
+  label: '',
+  type: '',
+  modelValue: '',
+  placeholder: '',
 })
 </script>
 

@@ -1,6 +1,6 @@
-import {ref, computed} from 'vue'
+import {ref} from 'vue'
 import {defineStore} from 'pinia'
-import {getItems, postItem} from "@/app/api";
+import {getItems} from "@/app/api";
 
 const URL: string = 'events'
 

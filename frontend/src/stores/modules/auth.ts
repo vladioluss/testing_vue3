@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import type {User} from "@/types/user";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {getItems} from "@/app/api";
 import router from "@/router";
 
@@ -10,8 +10,10 @@ const URL: string = 'users'
 
 export const useAuthStore = defineStore('auth', () => {
   const users = ref<User[]>([])
-  const user = ref<Object | null>({})
+  const user = ref<User | null>(null)
 
+
+  const isAdmin = computed<Boolean>(() => user.value?.role === 'ADMIN')
 
   // Использую для авторизации
   // ПОлучаем и сохраняем юзера
@@ -46,7 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Выходим из аккаута и чистим localStorage
   function logout(): void {
-    user.value = {}
+    user.value = null
     localStorage.removeItem('user')
     router.push({ name: 'login'})
   }
@@ -56,5 +58,6 @@ export const useAuthStore = defineStore('auth', () => {
     user,
     logout,
     getUser,
+    isAdmin,
   }
 })

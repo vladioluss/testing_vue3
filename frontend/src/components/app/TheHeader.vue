@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import BaseButton from "@/components/ui/buttons/BaseButton.vue";
-import router from "@/router";
 import {useAuthStore} from "@/stores/modules/auth";
 
 

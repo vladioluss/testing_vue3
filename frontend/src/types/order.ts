@@ -1,8 +1,8 @@
 export interface EventInterface {
   id?: number;
-  name: string;
+  name: string | undefined;
   address: string;
   date: string;
   status: object | string | "Новый" | "Выполнен";
-  comment: string;
+  comment?: string;
 }

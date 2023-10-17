@@ -4,7 +4,6 @@ import BaseForm from "@/components/ui/forms/BaseForm.vue";
 import BaseInput from "@/components/ui/inputs/BaseInput.vue";
 import {useAuthStore} from "@/stores/modules/auth";
 import BaseButton from "@/components/ui/buttons/BaseButton.vue";
-import axios from "axios";
 import router from "@/router";
 
 const authStore = useAuthStore()

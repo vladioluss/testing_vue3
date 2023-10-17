@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import BaseTable from "@/components/ui/tables/BaseTable.vue";
 import BaseModal from "@/components/ui/modals/BaseModal.vue";
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import {useEventsStore} from "@/stores/modules/events";
 import {useAuthStore} from "@/stores/modules/auth";
 import {useErrorsStore} from "@/stores/modules/errors";
-import type {TableProps} from "@/types/table";
 import {delItem, putItem} from "@/app/api";
 import type {EventInterface} from "@/types/order";
 
@@ -19,8 +18,9 @@ const userStore = useAuthStore()
 
 // Получаем все заказы
 eventsStore.getEvents()
+
 // Выбранный заказ
-const currEvent = ref({})
+const currEvent = ref<EventInterface | null>(null);
 
 
 // Шапка таблички
@@ -42,7 +42,7 @@ function sortByField(key: string) {
   ascending.value = !ascending.value;
 
   // Определенные поля сортировки
-  const sortingKey = {
+  const sortingKey: string | undefined = {
     'Адрес': 'address',
     'Дата заказа': 'date',
   }[key];
@@ -50,26 +50,19 @@ function sortByField(key: string) {
   if (!sortingKey) return;
 
   eventsStore.events.sort((a, b) => {
-    const aValue = a[sortingKey];
-    const bValue = b[sortingKey];
+    const aValue: string = a[sortingKey];
+    const bValue: string = b[sortingKey];
 
-    if (typeof aValue === 'string' && typeof bValue === 'string') {
-      // Сравнения строк
-      return ascending.value ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-    } else {
-      return ascending.value ? aValue - bValue : bValue - aValue;
-    }
+     // Сравнения строк
+    return ascending.value ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
   });
 }
-
-// Проверка на роль
-const isAdmin = computed(() => userStore.user.role === 'ADMIN')
 
 // Открытие/закрытие модалки
 const active = ref(false)
 
 // Удаление заказа
-function delEvent(id: number): void {
+function delEvent(id: number | object): void {
   delItem(`${URL}/${id}`)
       .then(() => eventsStore.getEvents())
       .catch(err => useErrorsStore().setError(err))
@@ -100,7 +93,7 @@ function setStatus(row: EventInterface): void {
         </th>
         <th
             class="actions-row"
-            v-if="isAdmin"
+            v-if="userStore.isAdmin"
         ></th>
       </template>
       <template #rows>
@@ -115,7 +108,7 @@ function setStatus(row: EventInterface): void {
           <td>{{ row.date }}</td>
           <td>{{ row.status }}</td>
           <td>{{ row.comment }}</td>
-          <td v-if="isAdmin">
+          <td v-if="userStore.isAdmin">
             <div class="actions-btns">
               <div
                   class="action done"
@@ -141,7 +134,7 @@ function setStatus(row: EventInterface): void {
   <!--Модалка с удалением заказа-->
   <BaseModal
       v-model="active"
-      @ok-btn="delEvent(currEvent)"
+      @ok-btn="delEvent(currEvent.id)"
   />
 </template>
 
