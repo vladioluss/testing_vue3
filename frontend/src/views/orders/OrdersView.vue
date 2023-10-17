@@ -64,7 +64,7 @@ function sortByField(key: string): void {
 const active = ref(false)
 
 // Удаление заказа
-function delEvent(id: number): void {
+function delEvent(id: number) {
   delItem(`${URL}/${id}`)
       .then(() => eventsStore.getEvents())
       .catch(err => useErrorsStore().setError(err))
@@ -136,7 +136,7 @@ function setStatus(row: EventInterface): void {
   <!--Модалка с удалением заказа-->
   <BaseModal
       v-model="active"
-      @ok-btn="delEvent(currEvent.id)"
+      @ok-btn="delEvent(currEvent)"
   />
 </template>
 
