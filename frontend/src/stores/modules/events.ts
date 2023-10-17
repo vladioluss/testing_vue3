@@ -1,11 +1,12 @@
 import {ref} from 'vue'
 import {defineStore} from 'pinia'
 import {getItems} from "@/app/api";
+import type {EventInterface} from "@/types/order";
 
 const URL: string = 'events'
 
 export const useEventsStore = defineStore('events', () => {
-  const events = ref([])
+  const events = ref<EventInterface[]>([])
 
   async function getEvents() {
     await getItems(URL, {})

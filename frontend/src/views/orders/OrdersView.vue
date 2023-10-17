@@ -20,8 +20,7 @@ const userStore = useAuthStore()
 eventsStore.getEvents()
 
 // Выбранный заказ
-const currEvent = ref<EventInterface | null>(null);
-
+const currEvent = ref<number>(0)
 
 // Шапка таблички
 const tableHeaders: string[] = [
@@ -37,32 +36,35 @@ const doneStatus: string = 'Выполнен'
 
 // сортировка по умолчанию
 let ascending = ref(false)
+
+
 // Сортировка по полю
-function sortByField(key: string) {
+function sortByField(key: string): void {
   ascending.value = !ascending.value;
 
   // Определенные поля сортировки
-  const sortingKey: string | undefined = {
+  let sortingKey: string | undefined = {
     'Адрес': 'address',
     'Дата заказа': 'date',
   }[key];
 
-  if (!sortingKey) return;
 
-  eventsStore.events.sort((a, b) => {
-    const aValue: string = a[sortingKey];
-    const bValue: string = b[sortingKey];
+  if (sortingKey !== undefined) {
+    eventsStore.events.sort((a, b) => {
+      let aValue = a[sortingKey];
+      let bValue = b[sortingKey];
 
-     // Сравнения строк
-    return ascending.value ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
-  });
+      // Сравнения строк
+      return ascending.value ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue)
+    })
+  }
 }
 
 // Открытие/закрытие модалки
 const active = ref(false)
 
 // Удаление заказа
-function delEvent(id: number | object): void {
+function delEvent(id: number): void {
   delItem(`${URL}/${id}`)
       .then(() => eventsStore.getEvents())
       .catch(err => useErrorsStore().setError(err))

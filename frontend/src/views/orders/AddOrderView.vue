@@ -14,7 +14,7 @@ const auth = useAuthStore()
 const URL: string = 'events'
 
 // Данные для формы
-const name = ref<string | undefined>(auth.user?.name || '')
+const name = ref<string>(auth.user?.name || '')
 const address = ref<string>('')
 const comment = ref<string>('')
 const status: string = 'Новый'
